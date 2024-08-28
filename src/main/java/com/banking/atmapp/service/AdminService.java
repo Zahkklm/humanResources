@@ -16,12 +16,22 @@ public class AdminService {
 
     public List<CustomerDto> getAllCustomers() {
         return customerRepository.findAll().stream()
-                .map(customer -> new CustomerDto(customer.getId(), customer.getUsername(), customer.getBalance()))
+                .map(customer -> new CustomerDto(customer.getUsername(), customer.getSalary(), customer.getPermitDay()))
                 .collect(Collectors.toList());
     }
 
     public CustomerDto getCustomerById(Long id) {
         Customer customer = customerRepository.findById(id).orElseThrow();
-        return new CustomerDto(customer.getId(), customer.getUsername(), customer.getBalance());
+        return new CustomerDto(customer.getUsername(), customer.getSalary(), customer.getPermitDay());
+    }
+
+    public void addCustomer(CustomerDto customerDto) {
+        Customer customer = Customer.builder()
+                .username(customerDto.getUsername())
+                .salary(customerDto.getSalary())
+                .permitDay(customerDto.getPermitDay())
+                .build();
+
+        customerRepository.save(customer);
     }
 }

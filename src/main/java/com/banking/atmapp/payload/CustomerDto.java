@@ -8,7 +8,7 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class CustomerDto {
-    private Long id;
     private String username;
-    private double balance;
+    private Integer salary;
+    private String permitDay;
 }

@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 //for Angular Client (withCredentials)
 //@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600, allowCredentials="true")
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/api/test")
 public class TestController {
   @GetMapping("/all")
   public String allAccess() {

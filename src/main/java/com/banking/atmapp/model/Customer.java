@@ -9,6 +9,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Customer {
     @Id
@@ -17,14 +19,11 @@ public class Customer {
 
     private String username;
 
-    private String password;
-
-    private double balance;
-
     @ManyToOne
     @JoinColumn(name = "admin_id")
     private Admin admin;
 
-    @OneToMany(mappedBy = "customer")
-    private List<Transaction> transactions;
+    private Integer salary;
+
+    private String permitDay;
 }

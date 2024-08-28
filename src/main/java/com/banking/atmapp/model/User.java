@@ -1,6 +1,7 @@
 package com.banking.atmapp.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.*;
@@ -31,6 +32,10 @@ public class User {
   @NotBlank
   @Size(max = 120)
   private String password;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "admin_id")
+  private Admin admin;
 
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "user_roles", 

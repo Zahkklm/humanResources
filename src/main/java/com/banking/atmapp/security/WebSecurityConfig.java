@@ -72,24 +72,33 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
   }
 
 
-  
+
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.csrf(csrf -> csrf.disable())
-        .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
-        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+    http.csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(auth ->
-          auth.requestMatchers("/api/auths/**",
-                          "/configuration/ui",
-                          "/swagger-resources/**",
-                          "/configuration/security",
-                          "swagger-ui/**",
-                          "swagger-ui**",
-                          "/v3/api-docs/**",
-                          "/v3/api-docs**",
-                          "/webjars/**").permitAll()
-                  .anyRequest().authenticated()
-        );
+                {
+                    try {
+                        auth.requestMatchers("/api/**","/login", "/register", "/css/**", "/js/**",
+                                        "index.html",
+                                        "login.html",
+                                        "register.html",
+                                        "/configuration/ui",
+                                        "/swagger-resources/**",
+                                        "/configuration/security",
+                                        "swagger-ui/**",
+                                        "swagger-ui**",
+                                        "/v3/api-docs/**",
+                                        "/v3/api-docs**",
+                                        "/webjars/**").permitAll()
+                                .anyRequest().authenticated();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+        )
+            .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
     
     http.authenticationProvider(authenticationProvider());
 

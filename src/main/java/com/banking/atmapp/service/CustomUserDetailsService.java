@@ -25,7 +25,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         Admin admin = adminRepository.findByUsername(username);
         if (admin != null) {
             return User.withUsername(admin.getUsername())
-                    .password(admin.getPassword())
                     .roles("ADMIN")
                     .build();
         }
@@ -33,7 +32,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         Customer customer = customerRepository.findByUsername(username);
         if (customer != null) {
             return User.withUsername(customer.getUsername())
-                    .password(customer.getPassword())
                     .roles("USER")
                     .build();
         }

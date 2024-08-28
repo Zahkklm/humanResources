@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Customers</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center">Customer List</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>username</th>
+            <th>salary</th>
+            <th>permitDay</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Loop through the list of customers -->
+        <tr th:each="customer : ${customers}">
+            <td th:text="${customer.username}"></td>
+            <td th:text="${customer.salary}"></td>
+            <td th:text="${customer.permitDay}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
